@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  brand       String
+  category    String   // "BICICLETA" o "ACCESORIO"
+  price       Float
+  stock       Int      @default(0)
+  imageUrl    String
+  rodado      String?  // Ej: "29" (nulo para accesorios)
+  velocidades String?  // Ej: "21" (nulo para accesorios)
+  frenos      String?  // Ej: "Disco" o "V-Brake" (nulo para accesorios)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model SiteSettings {
+  id                  String   @id @default("site")
+  heroBadge           String   @default("EL SHOWROOM N°1 DE MDP")
+  heroTitleLine1      String   @default("LA BICI")
+  heroTitleHighlight  String   @default("QUE BUSCÁS")
+  heroTitleLine3      String   @default("ESTÁ ACÁ")
+  heroDescription     String   @default("Las mejores marcas, los mejores precios y la asesoría que necesitás para pedalear seguro. Encontranos en nuestros locales físicos en Mar del Plata.")
+  heroImageUrl        String   @default("")
+  heroPrimaryCta      String   @default("ESCRIBINOS POR WHATSAPP")
+  heroSecondaryCta    String   @default("VER BICICLETAS")
+  updatedAt           DateTime @updatedAt
+}
