@@ -33,18 +33,27 @@ export async function PUT(request: Request, { params }: RouteParams) {
       );
     }
 
+    const nextCategory = category !== undefined ? category : existingProduct.category;
+
+    if (nextCategory !== "BICICLETA" && nextCategory !== "ACCESORIO") {
+      return NextResponse.json(
+        { error: "Categoría inválida" },
+        { status: 400 }
+      );
+    }
+
     const updatedProduct = await prisma.product.update({
       where: { id },
       data: {
         name: name !== undefined ? name : existingProduct.name,
         brand: brand !== undefined ? brand : existingProduct.brand,
-        category: category !== undefined ? category : existingProduct.category,
+        category: nextCategory,
         price: price !== undefined ? parseFloat(price) : existingProduct.price,
         stock: stock !== undefined ? parseInt(stock, 10) : existingProduct.stock,
         imageUrl: imageUrl !== undefined ? imageUrl : existingProduct.imageUrl,
-        rodado: category === "BICICLETA" ? (rodado !== undefined ? rodado : existingProduct.rodado) : null,
-        velocidades: category === "BICICLETA" ? (velocidades !== undefined ? velocidades : existingProduct.velocidades) : null,
-        frenos: category === "BICICLETA" ? (frenos !== undefined ? frenos : existingProduct.frenos) : null,
+        rodado: nextCategory === "BICICLETA" ? (rodado !== undefined ? rodado : existingProduct.rodado) : null,
+        velocidades: nextCategory === "BICICLETA" ? (velocidades !== undefined ? velocidades : existingProduct.velocidades) : null,
+        frenos: nextCategory === "BICICLETA" ? (frenos !== undefined ? frenos : existingProduct.frenos) : null,
         active: active !== undefined ? Boolean(active) : existingProduct.active,
       },
     });

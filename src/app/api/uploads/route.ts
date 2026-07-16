@@ -2,6 +2,7 @@ import { randomUUID } from "crypto";
 import { mkdir, writeFile } from "fs/promises";
 import path from "path";
 import { NextResponse } from "next/server";
+import { put } from "@vercel/blob";
 import { getSessionAdminId } from "@/lib/auth";
 
 const allowedTypes = new Map([
@@ -12,6 +13,14 @@ const allowedTypes = new Map([
 ]);
 
 const maxFileSize = 5 * 1024 * 1024;
+
+function safeFilename(filename: string) {
+  return filename
+    .toLowerCase()
+    .replace(/[^a-z0-9.\-_]/g, "-")
+    .replace(/-+/g, "-")
+    .slice(0, 80);
+}
 
 export async function POST(request: Request) {
   try {
@@ -48,18 +57,34 @@ export async function POST(request: Request) {
       );
     }
 
-    const uploadsDir = path.join(process.cwd(), "public", "uploads");
-    await mkdir(uploadsDir, { recursive: true });
+    const originalName = safeFilename(file.name || `imagen.${extension}`);
+    const filename = `uploads/${randomUUID()}-${originalName}`;
 
-    const filename = `${randomUUID()}.${extension}`;
-    const buffer = Buffer.from(await file.arrayBuffer());
-    await writeFile(path.join(uploadsDir, filename), buffer);
+    if (!process.env.BLOB_READ_WRITE_TOKEN) {
+      if (process.env.NODE_ENV === "production") {
+        return NextResponse.json(
+          { error: "Falta configurar BLOB_READ_WRITE_TOKEN en el servidor" },
+          { status: 500 }
+        );
+      }
 
-    return NextResponse.json({ url: `/uploads/${filename}` });
+      const uploadsDir = path.join(process.cwd(), "public", "uploads");
+      await mkdir(uploadsDir, { recursive: true });
+      const buffer = Buffer.from(await file.arrayBuffer());
+      await writeFile(path.join(process.cwd(), "public", filename), buffer);
+      return NextResponse.json({ url: `/${filename}` });
+    }
+
+    const blob = await put(filename, file, {
+      access: "public",
+    });
+
+    return NextResponse.json({ url: blob.url });
   } catch (error) {
     console.error("Error uploading image:", error);
+    const message = error instanceof Error ? error.message : "Error interno del servidor";
     return NextResponse.json(
-      { error: "Error interno del servidor" },
+      { error: message || "Error interno del servidor" },
       { status: 500 }
     );
   }
