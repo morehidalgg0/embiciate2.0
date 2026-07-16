@@ -12,7 +12,8 @@ const allowedTypes = new Map([
   ["image/gif", "gif"],
 ]);
 
-const maxFileSize = 5 * 1024 * 1024;
+// Vercel server uploads are limited to 4.5 MB. Keep our limit below that.
+const maxFileSize = 4 * 1024 * 1024;
 
 function safeFilename(filename: string) {
   return filename
@@ -32,17 +33,19 @@ export async function POST(request: Request) {
       );
     }
 
-    const formData = await request.formData();
-    const file = formData.get("image");
+    const { searchParams } = new URL(request.url);
+    const rawFilename = searchParams.get("filename") || "imagen";
+    const contentType = request.headers.get("content-type") || "";
+    const contentLength = Number(request.headers.get("content-length") || "0");
 
-    if (!(file instanceof File)) {
+    if (!request.body) {
       return NextResponse.json(
         { error: "Seleccioná una imagen para subir" },
         { status: 400 }
       );
     }
 
-    const extension = allowedTypes.get(file.type);
+    const extension = allowedTypes.get(contentType);
     if (!extension) {
       return NextResponse.json(
         { error: "Formato inválido. Usá JPG, PNG, WEBP o GIF." },
@@ -50,14 +53,14 @@ export async function POST(request: Request) {
       );
     }
 
-    if (file.size > maxFileSize) {
+    if (contentLength > maxFileSize) {
       return NextResponse.json(
-        { error: "La imagen no puede superar los 5 MB" },
+        { error: "La imagen no puede superar los 4 MB" },
         { status: 400 }
       );
     }
 
-    const originalName = safeFilename(file.name || `imagen.${extension}`);
+    const originalName = safeFilename(rawFilename) || `imagen.${extension}`;
     const filename = `uploads/${randomUUID()}-${originalName}`;
 
     if (!process.env.BLOB_READ_WRITE_TOKEN) {
@@ -70,13 +73,20 @@ export async function POST(request: Request) {
 
       const uploadsDir = path.join(process.cwd(), "public", "uploads");
       await mkdir(uploadsDir, { recursive: true });
-      const buffer = Buffer.from(await file.arrayBuffer());
+      const buffer = Buffer.from(await request.arrayBuffer());
+      if (buffer.length > maxFileSize) {
+        return NextResponse.json(
+          { error: "La imagen no puede superar los 4 MB" },
+          { status: 400 }
+        );
+      }
       await writeFile(path.join(process.cwd(), "public", filename), buffer);
       return NextResponse.json({ url: `/${filename}` });
     }
 
-    const blob = await put(filename, file, {
+    const blob = await put(filename, request.body, {
       access: "public",
+      contentType,
     });
 
     return NextResponse.json({ url: blob.url });

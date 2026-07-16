@@ -128,12 +128,10 @@ export default function AdminDashboard({ initialProducts, initialSettings }: Adm
     setImageUploading(true);
 
     try {
-      const formData = new FormData();
-      formData.append("image", file);
-
-      const response = await fetch("/api/uploads", {
+      const response = await fetch(`/api/uploads?filename=${encodeURIComponent(file.name)}`, {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": file.type },
+        body: file,
       });
       const data = await response.json();
 
@@ -159,12 +157,10 @@ export default function AdminDashboard({ initialProducts, initialSettings }: Adm
     setHeroImageUploading(true);
 
     try {
-      const formData = new FormData();
-      formData.append("image", file);
-
-      const response = await fetch("/api/uploads", {
+      const response = await fetch(`/api/uploads?filename=${encodeURIComponent(file.name)}`, {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": file.type },
+        body: file,
       });
       const data = await response.json();
 
