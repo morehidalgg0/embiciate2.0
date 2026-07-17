@@ -19,6 +19,11 @@ export const metadata: Metadata = {
   description: "La bici que buscás está acá. Venta de bicicletas de las mejores marcas (Topmega, Firebird, Raleigh, South, Venzo, SLP) y accesorios en Mar del Plata, Argentina. Hasta 12 cuotas fijas. Asesoramiento y venta directa por WhatsApp.",
   keywords: ["bicicletas", "mar del plata", "comprar bicicleta", "cuotas fijas", "raleigh", "firebird", "venzo", "topmega", "embiciate"],
   authors: [{ name: "Embiciate" }],
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
   openGraph: {
     title: "Embiciate | Bicicletas y Accesorios en Mar del Plata",
     description: "La bici que buscás está acá. Venta de bicicletas de las mejores marcas y accesorios en Mar del Plata. Hasta 12 cuotas fijas.",
