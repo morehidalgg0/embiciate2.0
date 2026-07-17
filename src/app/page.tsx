@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
 import { getSiteSettings } from "@/lib/site-settings";
+import { getWhatsAppUrl } from "@/lib/contact";
 import { MessageSquare, ShieldCheck, CreditCard, ChevronRight, Zap, Settings, Star } from "lucide-react";
 
 export const revalidate = 0; // Disable static rendering cache so admin changes reflect immediately
@@ -45,11 +46,9 @@ export default async function HomePage() {
   };
 
   const getWhatsAppLink = (productName: string, price: number) => {
-    const phoneNumber = "5492235517857";
-    const text = encodeURIComponent(
+    return getWhatsAppUrl(
       `¡Hola! Estoy interesado en la ${productName} que vi en la web con precio de ${formatPrice(price)}. Me gustaría recibir asesoramiento.`
     );
-    return `https://wa.me/${phoneNumber}?text=${text}`;
   };
 
   const brands = ["TOPMEGA", "FIREBIRD", "RALEIGH", "SOUTH", "VENZO", "SLP"];

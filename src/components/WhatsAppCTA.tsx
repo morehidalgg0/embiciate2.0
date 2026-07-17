@@ -1,11 +1,10 @@
 "use client";
 
 import React from "react";
+import { getWhatsAppUrl } from "@/lib/contact";
 
 export default function WhatsAppCTA() {
-  const phoneNumber = "5492235517857";
-  const message = encodeURIComponent("¡Hola! Vi el sitio web de Embiciate y me gustaría consultar por una bicicleta.");
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+  const whatsappUrl = getWhatsAppUrl("¡Hola! Vi el sitio web de Embiciate y me gustaría consultar por una bicicleta.");
 
   return (
     <a

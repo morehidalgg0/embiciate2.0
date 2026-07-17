@@ -2,28 +2,10 @@
 
 import React from "react";
 import { MapPin, Phone, Clock, MessageSquare, ShieldCheck, CreditCard, Truck } from "lucide-react";
+import { branches, getWhatsAppUrl } from "@/lib/contact";
 
 export default function Footer() {
-  const phoneNumber = "5492235517857";
-  const message = encodeURIComponent("¡Hola! Vi el sitio web de Embiciate y me gustaría consultar por una bicicleta.");
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
-
-  const branches = [
-    {
-      name: "Sucursal Güemes",
-      address: "Güemes 3020, Mar del Plata, Argentina",
-      gmaps: "https://maps.google.com/?q=Guemes+3020+Mar+del+Plata",
-      phone: "+54 9 223 551-7857",
-      hours: "Lun a Sáb: 9:00 - 13:00 / 16:00 - 20:00",
-    },
-    {
-      name: "Sucursal Constitución",
-      address: "Av. Constitución 5050, Mar del Plata, Argentina",
-      gmaps: "https://maps.google.com/?q=Av+Constitucion+5050+Mar+del+Plata",
-      phone: "+54 9 223 551-7857",
-      hours: "Lun a Sáb: 9:00 - 13:00 / 16:00 - 20:00",
-    },
-  ];
+  const whatsappUrl = getWhatsAppUrl("¡Hola! Vi el sitio web de Embiciate y me gustaría consultar por una bicicleta.");
 
   return (
     <footer id="contacto" className="bg-neutral-950 border-t border-neutral-900 text-neutral-400 pt-16 pb-8">
@@ -106,7 +88,7 @@ export default function Footer() {
                   </li>
                   <li className="flex items-center gap-3">
                     <Phone className="w-5 h-5 text-brand-orange shrink-0" />
-                    <a href={`tel:${phoneNumber}`} className="text-neutral-300 hover:text-white transition-colors">
+                    <a href={`tel:${branch.whatsapp}`} className="text-neutral-300 hover:text-white transition-colors">
                       {branch.phone}
                     </a>
                   </li>

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { MessageSquare, Menu, X } from "lucide-react";
+import { getWhatsAppUrl } from "@/lib/contact";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,9 +20,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const phoneNumber = "5492235517857";
-  const message = encodeURIComponent("¡Hola! Vi el sitio web de Embiciate y me gustaría consultar por una bicicleta.");
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+  const whatsappUrl = getWhatsAppUrl("¡Hola! Vi el sitio web de Embiciate y me gustaría consultar por una bicicleta.");
 
   const navLinks = [
     { name: "INICIO", href: "#inicio" },
