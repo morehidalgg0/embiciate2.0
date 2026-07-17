@@ -4,9 +4,10 @@ import { prisma } from "@/lib/db";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
+import ProductShowcase from "@/components/ProductShowcase";
 import { getSiteSettings } from "@/lib/site-settings";
 import { getWhatsAppUrl } from "@/lib/contact";
-import { MessageSquare, ShieldCheck, CreditCard, ChevronRight, Zap, Settings, Star } from "lucide-react";
+import { MessageSquare, ShieldCheck, CreditCard, ChevronRight, Zap, Star } from "lucide-react";
 
 export const revalidate = 0; // Disable static rendering cache so admin changes reflect immediately
 
@@ -21,6 +22,30 @@ export default async function HomePage() {
 
   const bicycles = products.filter((p) => p.category === "BICICLETA");
   const accessories = products.filter((p) => p.category === "ACCESORIO");
+  const catalogBicycles = bicycles.map((p) => ({
+    id: p.id,
+    name: p.name,
+    brand: p.brand,
+    category: p.category,
+    price: p.price,
+    stock: p.stock,
+    imageUrl: p.imageUrl,
+    rodado: p.rodado,
+    velocidades: p.velocidades,
+    frenos: p.frenos,
+  }));
+  const catalogAccessories = accessories.map((p) => ({
+    id: p.id,
+    name: p.name,
+    brand: p.brand,
+    category: p.category,
+    price: p.price,
+    stock: p.stock,
+    imageUrl: p.imageUrl,
+    rodado: p.rodado,
+    velocidades: p.velocidades,
+    frenos: p.frenos,
+  }));
 
   // Select the featured bike for the Hero (prefer Firebird Col Raiser if available, otherwise first bike)
   const featuredBike =
@@ -67,7 +92,7 @@ export default async function HomePage() {
             alt={featuredBike.name}
             fill
             priority
-            className="object-cover"
+            className="object-cover hero-image-enter"
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-neutral-950 via-neutral-950/78 to-neutral-950/18" />
@@ -79,7 +104,7 @@ export default async function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 my-auto">
           
           {/* Hero Content */}
-          <div className="max-w-3xl space-y-6 text-left">
+          <div className="max-w-3xl space-y-6 text-left hero-content-enter">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-neutral-950/60 backdrop-blur border border-brand-orange/40 rounded-sm text-brand-orange text-xs font-semibold tracking-wider uppercase">
               <Star className="w-3.5 h-3.5 fill-current" />
               {settings.heroBadge}
@@ -132,7 +157,7 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 mt-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 mt-10 hero-content-enter" style={{ animationDelay: "180ms" }}>
           <div className="bg-neutral-950/72 backdrop-blur-md border border-white/10 rounded-sm p-4 sm:p-5 shadow-2xl flex flex-col lg:flex-row lg:items-center justify-between gap-5">
             <div>
               <span className="text-xs font-semibold tracking-wider text-brand-orange uppercase">
@@ -178,176 +203,7 @@ export default async function HomePage() {
 
       </section>
 
-      {/* Bicycles Grid Section */}
-      <section id="bicicletas" className="bg-neutral-950 py-24 border-t border-neutral-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-            <div>
-              <span className="text-xs font-bold tracking-widest text-brand-orange uppercase border-l-2 border-brand-orange pl-3">
-                CATÁLOGO EXCLUSIVO
-              </span>
-              <h2 className="font-title text-4xl sm:text-5xl font-extrabold tracking-wide uppercase italic text-white mt-3">
-                NUESTRAS <span className="text-brand-orange">BICICLETAS</span>
-              </h2>
-            </div>
-            <p className="text-sm text-neutral-400 max-w-md mt-4 md:mt-0 font-light leading-relaxed">
-              Modelos seleccionados para MTB, recreación y deporte. Cada bicicleta incluye armado técnico inicial bonificado.
-            </p>
-          </div>
-
-          {bicycles.length === 0 ? (
-            <div className="text-center py-16 bg-brand-gray/30 border border-neutral-900 rounded-sm">
-              <Settings className="w-8 h-8 mx-auto text-neutral-600 animate-spin mb-4" />
-              <p className="text-neutral-500">Pronto cargaremos nuevas bicicletas. ¡Consultanos por WhatsApp!</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {bicycles.map((bike) => (
-                <div
-                  key={bike.id}
-                  className="bg-brand-dark border border-neutral-900 hover:border-neutral-800 transition-all duration-300 flex flex-col group rounded-sm"
-                >
-                  {/* Image wrapper */}
-                  <div className="relative w-full aspect-[4/3] bg-neutral-950 overflow-hidden border-b border-neutral-900/60 rounded-t-sm">
-                    <Image
-                      src={bike.imageUrl || "/images/firebird.jpeg"}
-                      alt={bike.name}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/35 via-transparent to-transparent pointer-events-none" />
-                    {bike.stock <= 2 && bike.stock > 0 && (
-                      <span className="absolute top-4 left-4 bg-brand-orange/95 text-white font-title text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-sm">
-                        ÚLTIMAS UNIDADES
-                      </span>
-                    )}
-                    {bike.stock === 0 && (
-                      <span className="absolute inset-0 bg-black/70 backdrop-blur-[1px] flex items-center justify-center text-white font-title font-bold tracking-widest text-sm">
-                        SIN STOCK / CONSULTAR
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Info Wrapper */}
-                  <div className="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center justify-between gap-2 text-xs text-neutral-500 font-bold uppercase tracking-wider">
-                        <span>{bike.brand}</span>
-                        {bike.rodado && <span>RODADO {bike.rodado}</span>}
-                      </div>
-                      
-                      <h3 className="font-title text-xl font-bold text-white tracking-wide uppercase mt-2 group-hover:text-brand-orange transition-colors">
-                        {bike.name}
-                      </h3>
-
-                      {/* Specs badges inline */}
-                      {(bike.velocidades || bike.frenos) && (
-                        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-neutral-400 mt-3 pt-3 border-t border-neutral-900/60">
-                          {bike.velocidades && <span>{bike.velocidades} Vel.</span>}
-                          {bike.frenos && <span>Frenos: {bike.frenos}</span>}
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="mt-6 pt-4 border-t border-neutral-900/60 flex items-center justify-between gap-4">
-                      <div>
-                        <p className="text-[10px] text-neutral-500 uppercase tracking-widest font-bold">Precio Especial</p>
-                        <p className="font-title text-2xl font-black text-white">{formatPrice(bike.price)}</p>
-                      </div>
-                      <a
-                        href={getWhatsAppLink(bike.name, bike.price)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center px-4 py-2.5 bg-brand-orange hover:bg-brand-orange-hover text-white font-title text-xs font-semibold tracking-wider transition-colors rounded-sm"
-                      >
-                        CONSULTAR
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-        </div>
-      </section>
-
-      {/* Accessories Grid Section */}
-      <section id="accesorios" className="bg-neutral-900/60 py-24 border-t border-neutral-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-            <div>
-              <span className="text-xs font-bold tracking-widest text-brand-orange uppercase border-l-2 border-brand-orange pl-3">
-                EQUIPAMIENTO & SEGURIDAD
-              </span>
-              <h2 className="font-title text-4xl sm:text-5xl font-extrabold tracking-wide uppercase italic text-white mt-3">
-                ACCESORIOS <span className="text-brand-orange">DESTACADOS</span>
-              </h2>
-            </div>
-            <p className="text-sm text-neutral-400 max-w-md mt-4 md:mt-0 font-light leading-relaxed">
-              Cascos, sistemas antirrobo, luces y todo lo necesario para rodar con seguridad por la ciudad y senderos.
-            </p>
-          </div>
-
-          {accessories.length === 0 ? (
-            <div className="text-center py-16 bg-brand-gray/30 border border-neutral-900 rounded-sm">
-              <p className="text-neutral-500">Pronto cargaremos nuevos accesorios. ¡Escribinos por WhatsApp!</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {accessories.map((acc) => (
-                <div
-                  key={acc.id}
-                  className="bg-brand-dark border border-neutral-900 hover:border-neutral-800 transition-all duration-300 flex flex-col group rounded-sm"
-                >
-                  {/* Image wrapper */}
-                  <div className="relative w-full aspect-[4/3] bg-neutral-950 overflow-hidden border-b border-neutral-900/60 rounded-t-sm">
-                    <Image
-                      src={acc.imageUrl || "/images/smart-kassel.jpg"}
-                      alt={acc.name}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/35 via-transparent to-transparent pointer-events-none" />
-                  </div>
-
-                  {/* Info Wrapper */}
-                  <div className="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                      <span className="text-xs text-neutral-500 font-bold uppercase tracking-wider block">
-                        {acc.brand}
-                      </span>
-                      <h3 className="font-title text-lg font-bold text-white tracking-wide uppercase mt-2 group-hover:text-brand-orange transition-colors">
-                        {acc.name}
-                      </h3>
-                    </div>
-
-                    <div className="mt-6 pt-4 border-t border-neutral-900/60 flex items-center justify-between gap-4">
-                      <div>
-                        <p className="text-[10px] text-neutral-500 uppercase tracking-widest font-bold font-sans">Precio Especial</p>
-                        <p className="font-title text-xl font-bold text-white">{formatPrice(acc.price)}</p>
-                      </div>
-                      <a
-                        href={getWhatsAppLink(acc.name, acc.price)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center px-4 py-2 bg-brand-orange hover:bg-brand-orange-hover text-white font-title text-xs font-semibold tracking-wider transition-colors rounded-sm"
-                      >
-                        COMPRAR
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-        </div>
-      </section>
+      <ProductShowcase bicycles={catalogBicycles} accessories={catalogAccessories} />
 
       <Footer />
       <WhatsAppCTA />
