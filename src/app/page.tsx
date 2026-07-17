@@ -236,14 +236,15 @@ export default async function HomePage() {
                   className="bg-brand-dark border border-neutral-900 hover:border-neutral-800 transition-all duration-300 flex flex-col group rounded-sm"
                 >
                   {/* Image wrapper */}
-                  <div className="relative w-full aspect-video sm:aspect-[4/3] bg-neutral-950 p-6 flex items-center justify-center overflow-hidden border-b border-neutral-900/60 rounded-t-sm">
+                  <div className="relative w-full aspect-[4/3] bg-neutral-950 overflow-hidden border-b border-neutral-900/60 rounded-t-sm">
                     <Image
                       src={bike.imageUrl || "/images/firebird.jpeg"}
                       alt={bike.name}
-                      width={300}
-                      height={200}
-                      className="object-contain max-h-48 group-hover:scale-105 transition-transform duration-500"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/35 via-transparent to-transparent pointer-events-none" />
                     {bike.stock <= 2 && bike.stock > 0 && (
                       <span className="absolute top-4 left-4 bg-brand-orange/95 text-white font-title text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-sm">
                         ÚLTIMAS UNIDADES
@@ -330,14 +331,15 @@ export default async function HomePage() {
                   className="bg-brand-dark border border-neutral-900 hover:border-neutral-800 transition-all duration-300 flex flex-col group rounded-sm"
                 >
                   {/* Image wrapper */}
-                  <div className="relative w-full aspect-[4/3] bg-neutral-950 p-6 flex items-center justify-center border-b border-neutral-900/60 rounded-t-sm">
+                  <div className="relative w-full aspect-[4/3] bg-neutral-950 overflow-hidden border-b border-neutral-900/60 rounded-t-sm">
                     <Image
                       src={acc.imageUrl || "/images/smart-kassel.jpg"}
                       alt={acc.name}
-                      width={220}
-                      height={150}
-                      className="object-contain max-h-40 group-hover:scale-105 transition-transform duration-500"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/35 via-transparent to-transparent pointer-events-none" />
                   </div>
 
                   {/* Info Wrapper */}
