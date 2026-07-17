@@ -59,11 +59,11 @@ export default async function HomePage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section id="inicio" className="relative min-h-screen flex flex-col justify-between pt-24 lg:pt-32 pb-12 overflow-hidden bg-gradient-to-b from-neutral-950 via-neutral-950 to-neutral-900">
+      <section id="inicio" className="relative min-h-screen flex flex-col justify-between pt-24 lg:pt-32 pb-12 overflow-hidden bg-neutral-950">
         
         {/* Background Image / Overlay Grid */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(255,76,0,0.1),rgba(255,255,255,0))] pointer-events-none z-0" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(8,8,8,0.5)_1px,transparent_1px),linear-gradient(90deg,rgba(8,8,8,0.5)_1px,transparent_1px)] bg-[size:30px_30px] opacity-20 pointer-events-none z-0" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,76,0,0.14),transparent_32%),linear-gradient(135deg,rgba(255,76,0,0.08),transparent_42%)] pointer-events-none z-0" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:42px_42px] opacity-30 pointer-events-none z-0" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 my-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:items-center">
           
@@ -121,69 +121,74 @@ export default async function HomePage() {
           </div>
 
           {/* Hero Right Image & Specs Box */}
-          <div className="lg:col-span-6 relative flex flex-col items-center justify-center">
-            
-            {/* Background glowing circle */}
-            <div className="absolute w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-brand-orange/5 blur-[80px] pointer-events-none -z-10" />
+          <div className="lg:col-span-6 relative">
+            <div className="relative min-h-[520px] overflow-hidden rounded-sm border border-neutral-800 bg-brand-dark shadow-2xl">
+              <div className="absolute inset-0">
+                <Image
+                  src={settings.heroImageUrl || featuredBike.imageUrl || "/images/firebird.jpeg"}
+                  alt={featuredBike.name}
+                  fill
+                  priority
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/45 via-transparent to-transparent" />
+              </div>
 
-            {/* Product Image */}
-            <div className="relative w-full max-w-lg aspect-[4/3] sm:aspect-video select-none">
-              <Image
-                src={settings.heroImageUrl || featuredBike.imageUrl || "/images/firebird.jpeg"}
-                alt={featuredBike.name}
-                fill
-                priority
-                className="object-contain filter drop-shadow-[0_15px_30px_rgba(0,0,0,0.5)] transform hover:scale-105 transition-transform duration-500"
-                sizes="(max-w-768px) 100vw, 50vw"
-              />
-            </div>
+              <div className="absolute left-5 top-5 bg-neutral-950/80 backdrop-blur border border-white/10 px-3 py-2 rounded-sm">
+                <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-400 font-bold">Destacada</p>
+                <p className="font-title text-sm text-white font-bold tracking-wider">{featuredBike.brand}</p>
+              </div>
 
-            {/* Featured Product Specs Box (Matches Reference Image) */}
-            <div className="w-full max-w-xl bg-brand-dark/95 border border-neutral-900 p-6 sm:p-8 rounded-sm shadow-2xl mt-4">
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-neutral-900 pb-4 mb-4 gap-4">
-                <div>
-                  <span className="text-xs font-semibold tracking-wider text-brand-orange uppercase">
-                    {featuredBike.brand} ALUMINIO &gt;&gt;
-                  </span>
-                  <h3 className="font-title text-3xl sm:text-4xl font-extrabold text-white mt-1">
-                    {formatPrice(featuredBike.price)}
-                  </h3>
-                </div>
-                <div className="flex items-center gap-4 bg-brand-gray border border-neutral-900 px-4 py-3 rounded-sm w-full sm:w-auto">
-                  <CreditCard className="w-8 h-8 text-brand-orange shrink-0" />
-                  <div>
-                    <p className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Hasta</p>
-                    <p className="font-title text-xl font-black text-white leading-none">
-                      <span className="text-brand-orange">12</span> CUOTAS FIJAS
-                    </p>
-                    <p className="text-[10px] text-neutral-400">Con todas las tarjetas</p>
+              <div className="absolute right-5 top-5 bg-brand-orange px-4 py-2 rounded-sm shadow-lg shadow-black/30">
+                <p className="font-title text-sm font-black text-white tracking-widest">12 CUOTAS</p>
+              </div>
+
+              <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
+                <div className="bg-neutral-950/88 backdrop-blur-md border border-white/10 p-5 sm:p-6 rounded-sm shadow-2xl">
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b border-white/10 pb-4 mb-4">
+                    <div>
+                      <span className="text-xs font-semibold tracking-wider text-brand-orange uppercase">
+                        {featuredBike.brand} ALUMINIO &gt;&gt;
+                      </span>
+                      <h3 className="font-title text-2xl sm:text-4xl font-extrabold text-white mt-1">
+                        {formatPrice(featuredBike.price)}
+                      </h3>
+                    </div>
+                    <a
+                      href={getWhatsAppLink(featuredBike.name, featuredBike.price)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center px-4 py-2.5 bg-brand-orange hover:bg-brand-orange-hover text-white font-title text-xs font-semibold tracking-wider transition-colors rounded-sm"
+                    >
+                      CONSULTAR
+                    </a>
+                  </div>
+
+                  <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs tracking-wider uppercase text-neutral-300">
+                    {featuredBike.rodado && (
+                      <span className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
+                        RODADO {featuredBike.rodado}&apos;
+                      </span>
+                    )}
+                    {featuredBike.velocidades && (
+                      <span className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
+                        {featuredBike.velocidades} VELOCIDADES
+                      </span>
+                    )}
+                    {featuredBike.frenos && (
+                      <span className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
+                        FRENOS {featuredBike.frenos}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
-
-              {/* Specs badges */}
-              <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs tracking-wider uppercase text-neutral-400">
-                {featuredBike.rodado && (
-                  <span className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
-                    RODADO {featuredBike.rodado}&apos;
-                  </span>
-                )}
-                {featuredBike.velocidades && (
-                  <span className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
-                    {featuredBike.velocidades} VELOCIDADES
-                  </span>
-                )}
-                {featuredBike.frenos && (
-                  <span className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
-                    FRENOS {featuredBike.frenos}
-                  </span>
-                )}
-              </div>
             </div>
-
           </div>
         </div>
 
