@@ -59,28 +59,40 @@ export default async function HomePage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section id="inicio" className="relative min-h-screen flex flex-col justify-between pt-24 lg:pt-32 pb-12 overflow-hidden bg-neutral-950">
+      <section id="inicio" className="relative min-h-screen flex flex-col justify-between pt-24 lg:pt-32 pb-10 overflow-hidden bg-neutral-950">
         
-        {/* Background Image / Overlay Grid */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,76,0,0.14),transparent_32%),linear-gradient(135deg,rgba(255,76,0,0.08),transparent_42%)] pointer-events-none z-0" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:42px_42px] opacity-30 pointer-events-none z-0" />
+        {/* Full-bleed hero image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={settings.heroImageUrl || featuredBike.imageUrl || "/images/firebird.jpeg"}
+            alt={featuredBike.name}
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-neutral-950 via-neutral-950/78 to-neutral-950/18" />
+          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/20 to-neutral-950/35" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(255,76,0,0.24),transparent_28%)]" />
+        </div>
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:42px_42px] opacity-20 pointer-events-none z-0" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 my-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 my-auto">
           
-          {/* Hero Left Content */}
-          <div className="lg:col-span-6 space-y-6 text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange/10 border border-brand-orange/30 rounded-sm text-brand-orange text-xs font-semibold tracking-wider uppercase">
+          {/* Hero Content */}
+          <div className="max-w-3xl space-y-6 text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-neutral-950/60 backdrop-blur border border-brand-orange/40 rounded-sm text-brand-orange text-xs font-semibold tracking-wider uppercase">
               <Star className="w-3.5 h-3.5 fill-current" />
               {settings.heroBadge}
             </div>
             
-            <h1 className="font-title text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-none text-white uppercase italic">
+            <h1 className="font-title text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight leading-[0.86] text-white uppercase italic drop-shadow-2xl">
               {settings.heroTitleLine1} <br />
               <span className="text-brand-orange">{settings.heroTitleHighlight}</span> <br />
               {settings.heroTitleLine3}
             </h1>
             
-            <p className="text-base sm:text-lg text-neutral-400 max-w-lg leading-relaxed font-light">
+            <p className="text-base sm:text-xl text-neutral-200 max-w-2xl leading-relaxed font-light drop-shadow-md">
               {settings.heroDescription}
             </p>
 
@@ -89,14 +101,14 @@ export default async function HomePage() {
                 href={getWhatsAppLink(featuredBike.name, featuredBike.price)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-orange hover:bg-brand-orange-hover text-white font-title text-base font-semibold tracking-wider transition-all duration-300 rounded-sm shadow-lg shadow-brand-orange/20"
+                className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-orange hover:bg-brand-orange-hover text-white font-title text-base font-semibold tracking-wider transition-all duration-300 rounded-sm shadow-xl shadow-brand-orange/25"
               >
                 <MessageSquare className="w-5 h-5 fill-current" />
                 {settings.heroPrimaryCta}
               </a>
               <a
                 href="#bicicletas"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-neutral-900 border border-neutral-800 hover:border-neutral-700 text-white font-title text-base font-semibold tracking-wider transition-all duration-300 rounded-sm"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-neutral-950/65 backdrop-blur border border-white/15 hover:border-white/30 text-white font-title text-base font-semibold tracking-wider transition-all duration-300 rounded-sm"
               >
                 {settings.heroSecondaryCta}
                 <ChevronRight className="w-4 h-4" />
@@ -104,96 +116,53 @@ export default async function HomePage() {
             </div>
 
             {/* Micro Specs */}
-            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-neutral-900 max-w-md">
-              <div className="flex items-center gap-2 text-xs text-neutral-400">
+            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10 max-w-md">
+              <div className="flex items-center gap-2 text-xs text-neutral-200">
                 <CreditCard className="w-4 h-4 text-brand-orange shrink-0" />
                 <span>Hasta 12 Cuotas</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-neutral-400">
+              <div className="flex items-center gap-2 text-xs text-neutral-200">
                 <ShieldCheck className="w-4 h-4 text-brand-orange shrink-0" />
                 <span>Garantía Oficial</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-neutral-400">
+              <div className="flex items-center gap-2 text-xs text-neutral-200">
                 <Zap className="w-4 h-4 text-brand-orange shrink-0" />
                 <span>Armado Gratis</span>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Hero Right Image & Specs Box */}
-          <div className="lg:col-span-6 relative">
-            <div className="relative min-h-[520px] overflow-hidden rounded-sm border border-neutral-800 bg-brand-dark shadow-2xl">
-              <div className="absolute inset-0">
-                <Image
-                  src={settings.heroImageUrl || featuredBike.imageUrl || "/images/firebird.jpeg"}
-                  alt={featuredBike.name}
-                  fill
-                  priority
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/30 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/45 via-transparent to-transparent" />
-              </div>
-
-              <div className="absolute left-5 top-5 bg-neutral-950/80 backdrop-blur border border-white/10 px-3 py-2 rounded-sm">
-                <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-400 font-bold">Destacada</p>
-                <p className="font-title text-sm text-white font-bold tracking-wider">{featuredBike.brand}</p>
-              </div>
-
-              <div className="absolute right-5 top-5 bg-brand-orange px-4 py-2 rounded-sm shadow-lg shadow-black/30">
-                <p className="font-title text-sm font-black text-white tracking-widest">12 CUOTAS</p>
-              </div>
-
-              <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
-                <div className="bg-neutral-950/88 backdrop-blur-md border border-white/10 p-5 sm:p-6 rounded-sm shadow-2xl">
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b border-white/10 pb-4 mb-4">
-                    <div>
-                      <span className="text-xs font-semibold tracking-wider text-brand-orange uppercase">
-                        {featuredBike.brand} ALUMINIO &gt;&gt;
-                      </span>
-                      <h3 className="font-title text-2xl sm:text-4xl font-extrabold text-white mt-1">
-                        {formatPrice(featuredBike.price)}
-                      </h3>
-                    </div>
-                    <a
-                      href={getWhatsAppLink(featuredBike.name, featuredBike.price)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center px-4 py-2.5 bg-brand-orange hover:bg-brand-orange-hover text-white font-title text-xs font-semibold tracking-wider transition-colors rounded-sm"
-                    >
-                      CONSULTAR
-                    </a>
-                  </div>
-
-                  <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs tracking-wider uppercase text-neutral-300">
-                    {featuredBike.rodado && (
-                      <span className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
-                        RODADO {featuredBike.rodado}&apos;
-                      </span>
-                    )}
-                    {featuredBike.velocidades && (
-                      <span className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
-                        {featuredBike.velocidades} VELOCIDADES
-                      </span>
-                    )}
-                    {featuredBike.frenos && (
-                      <span className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
-                        FRENOS {featuredBike.frenos}
-                      </span>
-                    )}
-                  </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 mt-10">
+          <div className="bg-neutral-950/72 backdrop-blur-md border border-white/10 rounded-sm p-4 sm:p-5 shadow-2xl flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+            <div>
+              <span className="text-xs font-semibold tracking-wider text-brand-orange uppercase">
+                {featuredBike.brand} ALUMINIO &gt;&gt;
+              </span>
+              <div className="flex flex-col sm:flex-row sm:items-end gap-3 sm:gap-6 mt-1">
+                <h3 className="font-title text-3xl sm:text-4xl font-extrabold text-white">
+                  {formatPrice(featuredBike.price)}
+                </h3>
+                <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs tracking-wider uppercase text-neutral-300 pb-1">
+                  {featuredBike.rodado && <span>Rodado {featuredBike.rodado}&apos;</span>}
+                  {featuredBike.velocidades && <span>{featuredBike.velocidades} velocidades</span>}
+                  {featuredBike.frenos && <span>Frenos {featuredBike.frenos}</span>}
                 </div>
               </div>
             </div>
+            <a
+              href={getWhatsAppLink(featuredBike.name, featuredBike.price)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-6 py-3 bg-brand-orange hover:bg-brand-orange-hover text-white font-title text-xs font-semibold tracking-wider transition-colors rounded-sm"
+            >
+              CONSULTAR DESTACADA
+            </a>
           </div>
         </div>
 
         {/* Brands footer (Matches Reference Image) */}
-        <div className="w-full border-t border-neutral-900/60 pt-10 mt-12 bg-neutral-950/40 backdrop-blur-sm z-10">
+        <div className="w-full border-t border-white/10 pt-8 mt-10 bg-neutral-950/35 backdrop-blur-sm z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-3 md:grid-cols-6 gap-6 items-center justify-items-center opacity-40 hover:opacity-75 transition-opacity duration-300">
               {brands.map((brand) => (
