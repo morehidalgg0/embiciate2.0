@@ -11,7 +11,7 @@ export default function WhatsAppCTA() {
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-brand-orange text-white rounded-full shadow-2xl hover:bg-brand-orange-hover hover:scale-110 transition-all duration-300 group"
+      className="fixed bottom-6 right-6 z-50 hidden md:flex items-center justify-center w-14 h-14 bg-brand-orange text-white rounded-full shadow-2xl hover:bg-brand-orange-hover hover:scale-110 transition-all duration-300 group"
       aria-label="Contactar por WhatsApp"
     >
       {/* Pulse effect */}

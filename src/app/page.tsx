@@ -83,7 +83,7 @@ export default async function HomePage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section id="inicio" className="relative min-h-screen flex flex-col justify-between pt-24 lg:pt-32 pb-10 overflow-hidden bg-neutral-950">
+      <section id="inicio" className="relative min-h-[92svh] md:min-h-screen flex flex-col justify-between pt-24 md:pt-28 lg:pt-32 pb-6 md:pb-10 overflow-hidden bg-neutral-950">
         
         {/* Full-bleed hero image */}
         <div className="absolute inset-0 z-0">
@@ -96,7 +96,8 @@ export default async function HomePage() {
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-neutral-950 via-neutral-950/78 to-neutral-950/18" />
-          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/20 to-neutral-950/35" />
+          <div className="absolute inset-0 md:hidden bg-gradient-to-t from-neutral-950 via-neutral-950/55 to-neutral-950/20" />
+          <div className="absolute inset-0 hidden md:block bg-gradient-to-t from-neutral-950 via-neutral-950/20 to-neutral-950/35" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(255,76,0,0.24),transparent_28%)]" />
         </div>
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:42px_42px] opacity-20 pointer-events-none z-0" />
@@ -104,23 +105,23 @@ export default async function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 my-auto">
           
           {/* Hero Content */}
-          <div className="max-w-3xl space-y-6 text-left hero-content-enter">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-neutral-950/60 backdrop-blur border border-brand-orange/40 rounded-sm text-brand-orange text-xs font-semibold tracking-wider uppercase">
+          <div className="max-w-3xl space-y-4 md:space-y-6 text-center md:text-left hero-content-enter">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-neutral-950/60 backdrop-blur border border-brand-orange/40 rounded-sm text-brand-orange text-[10px] md:text-xs font-semibold tracking-wider uppercase">
               <Star className="w-3.5 h-3.5 fill-current" />
               {settings.heroBadge}
             </div>
             
-            <h1 className="font-title text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight leading-[0.86] text-white uppercase italic drop-shadow-2xl">
+            <h1 className="font-title text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-extrabold tracking-tight leading-[0.86] text-white uppercase italic drop-shadow-2xl">
               {settings.heroTitleLine1} <br />
               <span className="text-brand-orange">{settings.heroTitleHighlight}</span> <br />
               {settings.heroTitleLine3}
             </h1>
             
-            <p className="text-base sm:text-xl text-neutral-200 max-w-2xl leading-relaxed font-light drop-shadow-md">
+            <p className="text-sm sm:text-base md:text-xl text-neutral-200 max-w-xl md:max-w-2xl mx-auto md:mx-0 leading-relaxed font-light drop-shadow-md">
               {settings.heroDescription}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-2">
+            <div className="hidden md:flex flex-col sm:flex-row gap-4 pt-2">
               <a
                 href={getWhatsAppLink(featuredBike.name, featuredBike.price)}
                 target="_blank"
@@ -140,16 +141,16 @@ export default async function HomePage() {
             </div>
 
             {/* Micro Specs */}
-            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10 max-w-md">
-              <div className="flex items-center gap-2 text-xs text-neutral-200">
+            <div className="grid grid-cols-3 gap-2 md:gap-4 pt-4 md:pt-6 border-t border-white/10 max-w-md mx-auto md:mx-0">
+              <div className="flex flex-col md:flex-row items-center gap-1 md:gap-2 text-[10px] md:text-xs text-neutral-200 text-center md:text-left">
                 <CreditCard className="w-4 h-4 text-brand-orange shrink-0" />
                 <span>Hasta 12 Cuotas</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-neutral-200">
+              <div className="flex flex-col md:flex-row items-center gap-1 md:gap-2 text-[10px] md:text-xs text-neutral-200 text-center md:text-left">
                 <ShieldCheck className="w-4 h-4 text-brand-orange shrink-0" />
                 <span>Garantía Oficial</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-neutral-200">
+              <div className="flex flex-col md:flex-row items-center gap-1 md:gap-2 text-[10px] md:text-xs text-neutral-200 text-center md:text-left">
                 <Zap className="w-4 h-4 text-brand-orange shrink-0" />
                 <span>Armado Gratis</span>
               </div>
@@ -157,14 +158,14 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 mt-10 hero-content-enter" style={{ animationDelay: "180ms" }}>
-          <div className="bg-neutral-950/72 backdrop-blur-md border border-white/10 rounded-sm p-4 sm:p-5 shadow-2xl flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 mt-6 md:mt-10 hero-content-enter" style={{ animationDelay: "180ms" }}>
+          <div className="bg-neutral-950/72 backdrop-blur-md border border-white/10 rounded-sm p-4 sm:p-5 shadow-2xl flex flex-col lg:flex-row lg:items-center justify-between gap-4 md:gap-5">
             <div>
               <span className="text-xs font-semibold tracking-wider text-brand-orange uppercase">
                 {featuredBike.brand} ALUMINIO &gt;&gt;
               </span>
-              <div className="flex flex-col sm:flex-row sm:items-end gap-3 sm:gap-6 mt-1">
-                <h3 className="font-title text-3xl sm:text-4xl font-extrabold text-white">
+              <div className="flex flex-col sm:flex-row sm:items-end gap-2 sm:gap-6 mt-1">
+                <h3 className="font-title text-2xl sm:text-4xl font-extrabold text-white">
                   {formatPrice(featuredBike.price)}
                 </h3>
                 <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs tracking-wider uppercase text-neutral-300 pb-1">
@@ -178,15 +179,33 @@ export default async function HomePage() {
               href={getWhatsAppLink(featuredBike.name, featuredBike.price)}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-6 py-3 bg-brand-orange hover:bg-brand-orange-hover text-white font-title text-xs font-semibold tracking-wider transition-colors rounded-sm"
+              className="hidden md:inline-flex items-center justify-center px-6 py-3 bg-brand-orange hover:bg-brand-orange-hover text-white font-title text-xs font-semibold tracking-wider transition-colors rounded-sm"
             >
               CONSULTAR DESTACADA
             </a>
           </div>
         </div>
 
+        <div className="fixed inset-x-0 bottom-0 z-[60] md:hidden bg-neutral-950/92 backdrop-blur border-t border-white/10 p-3 flex gap-3">
+          <a
+            href={getWhatsAppLink(featuredBike.name, featuredBike.price)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 inline-flex items-center justify-center gap-2 py-3 bg-brand-orange text-white font-title text-xs font-semibold tracking-wider rounded-sm"
+          >
+            <MessageSquare className="w-4 h-4" />
+            WHATSAPP
+          </a>
+          <a
+            href="#bicicletas"
+            className="flex-1 inline-flex items-center justify-center gap-2 py-3 bg-white/10 border border-white/15 text-white font-title text-xs font-semibold tracking-wider rounded-sm"
+          >
+            VER BICIS
+          </a>
+        </div>
+
         {/* Brands footer (Matches Reference Image) */}
-        <div className="w-full border-t border-white/10 pt-8 mt-10 bg-neutral-950/35 backdrop-blur-sm z-10">
+        <div className="w-full border-t border-white/10 pt-6 md:pt-8 mt-6 md:mt-10 bg-neutral-950/35 backdrop-blur-sm z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-3 md:grid-cols-6 gap-6 items-center justify-items-center opacity-40 hover:opacity-75 transition-opacity duration-300">
               {brands.map((brand) => (

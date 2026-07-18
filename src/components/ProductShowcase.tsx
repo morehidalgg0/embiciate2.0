@@ -43,13 +43,13 @@ function ProductCard({ product, onDetails, index }: { product: Product; onDetail
 
   return (
     <article
-      className="product-card-enter bg-brand-dark border border-neutral-900 hover:border-neutral-800 transition-all duration-300 flex flex-col group rounded-sm"
+      className="product-card-enter bg-brand-dark border border-neutral-900 hover:border-neutral-800 transition-all duration-300 flex flex-col group rounded-sm overflow-hidden"
       style={{ animationDelay: `${Math.min(index * 80, 400)}ms` }}
     >
       <button
         type="button"
         onClick={onDetails}
-        className="relative w-full aspect-[4/3] bg-neutral-950 overflow-hidden border-b border-neutral-900/60 rounded-t-sm text-left cursor-pointer"
+        className="relative w-full aspect-[16/11] md:aspect-[4/3] bg-neutral-950 overflow-hidden border-b border-neutral-900/60 rounded-t-sm text-left cursor-pointer"
         aria-label={`Ver detalles de ${product.name}`}
       >
         <Image
@@ -70,19 +70,19 @@ function ProductCard({ product, onDetails, index }: { product: Product; onDetail
             SIN STOCK / CONSULTAR
           </span>
         )}
-        <span className="absolute right-4 bottom-4 bg-neutral-950/80 backdrop-blur border border-white/10 text-white font-title text-[10px] tracking-widest px-3 py-2 opacity-0 group-hover:opacity-100 transition-opacity">
+        <span className="absolute right-3 bottom-3 md:right-4 md:bottom-4 bg-neutral-950/80 backdrop-blur border border-white/10 text-white font-title text-[10px] tracking-widest px-3 py-2 md:opacity-0 group-hover:opacity-100 transition-opacity">
           VER DETALLES
         </span>
       </button>
 
-      <div className="p-6 flex-1 flex flex-col justify-between">
+      <div className="p-4 md:p-6 flex-1 flex flex-col justify-between">
         <div>
           <div className="flex items-center justify-between gap-2 text-xs text-neutral-500 font-bold uppercase tracking-wider">
             <span>{product.brand}</span>
             {product.rodado && <span>RODADO {product.rodado}</span>}
           </div>
 
-          <h3 className="font-title text-xl font-bold text-white tracking-wide uppercase mt-2 group-hover:text-brand-orange transition-colors">
+          <h3 className="font-title text-lg md:text-xl font-bold text-white tracking-wide uppercase mt-2 group-hover:text-brand-orange transition-colors">
             {product.name}
           </h3>
 
@@ -94,10 +94,10 @@ function ProductCard({ product, onDetails, index }: { product: Product; onDetail
           )}
         </div>
 
-        <div className="mt-6 pt-4 border-t border-neutral-900/60 flex items-center justify-between gap-4">
+        <div className="mt-5 md:mt-6 pt-4 border-t border-neutral-900/60 flex items-center justify-between gap-4">
           <div>
             <p className="text-[10px] text-neutral-500 uppercase tracking-widest font-bold">Precio Especial</p>
-            <p className="font-title text-2xl font-black text-white">{formatPrice(product.price)}</p>
+            <p className="font-title text-xl md:text-2xl font-black text-white">{formatPrice(product.price)}</p>
           </div>
           <button
             type="button"
@@ -116,8 +116,8 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
   const fallbackImage = product.category === "BICICLETA" ? "/images/firebird.jpeg" : "/images/smart-kassel.jpg";
 
   return (
-    <div className="fixed inset-0 z-[70] bg-black/85 backdrop-blur-sm p-4 flex items-center justify-center" role="dialog" aria-modal="true">
-      <div className="modal-enter relative w-full max-w-5xl max-h-[92vh] overflow-y-auto bg-neutral-950 border border-white/10 rounded-sm shadow-2xl">
+    <div className="fixed inset-0 z-[70] bg-black/85 backdrop-blur-sm p-0 md:p-4 flex items-end md:items-center justify-center" role="dialog" aria-modal="true">
+      <div className="modal-enter relative w-full max-w-5xl max-h-[96svh] md:max-h-[92vh] overflow-y-auto bg-neutral-950 border border-white/10 rounded-t-2xl md:rounded-sm shadow-2xl">
         <button
           type="button"
           onClick={onClose}
@@ -128,7 +128,7 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
         </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-2">
-          <div className="relative min-h-[360px] lg:min-h-[560px] bg-neutral-900 overflow-hidden">
+          <div className="relative min-h-[300px] sm:min-h-[420px] lg:min-h-[560px] bg-neutral-900 overflow-hidden">
             <Image
               src={product.imageUrl || fallbackImage}
               alt={product.name}
@@ -139,36 +139,36 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
             <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/50 via-transparent to-transparent" />
           </div>
 
-          <div className="p-6 sm:p-8 lg:p-10 flex flex-col justify-between gap-8">
+          <div className="p-5 sm:p-8 lg:p-10 flex flex-col justify-between gap-6 md:gap-8">
             <div>
               <span className="text-xs font-bold tracking-widest text-brand-orange uppercase">
                 {product.brand} / {product.category}
               </span>
-              <h2 className="font-title text-4xl sm:text-5xl font-extrabold text-white uppercase italic mt-3 leading-none">
+              <h2 className="font-title text-3xl sm:text-5xl font-extrabold text-white uppercase italic mt-3 leading-none">
                 {product.name}
               </h2>
-              <p className="font-title text-4xl font-black text-white mt-6">{formatPrice(product.price)}</p>
+              <p className="font-title text-3xl md:text-4xl font-black text-white mt-5 md:mt-6">{formatPrice(product.price)}</p>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-brand-gray border border-neutral-800 p-4 rounded-sm">
+              <div className="bg-brand-gray border border-neutral-800 p-3 md:p-4 rounded-sm">
                 <p className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Stock</p>
                 <p className="text-white font-title text-2xl font-bold mt-1">{product.stock}</p>
               </div>
               {product.rodado && (
-                <div className="bg-brand-gray border border-neutral-800 p-4 rounded-sm">
+                <div className="bg-brand-gray border border-neutral-800 p-3 md:p-4 rounded-sm">
                   <p className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Rodado</p>
                   <p className="text-white font-title text-2xl font-bold mt-1">{product.rodado}</p>
                 </div>
               )}
               {product.velocidades && (
-                <div className="bg-brand-gray border border-neutral-800 p-4 rounded-sm">
+                <div className="bg-brand-gray border border-neutral-800 p-3 md:p-4 rounded-sm">
                   <p className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Velocidades</p>
                   <p className="text-white font-title text-2xl font-bold mt-1">{product.velocidades}</p>
                 </div>
               )}
               {product.frenos && (
-                <div className="bg-brand-gray border border-neutral-800 p-4 rounded-sm">
+                <div className="bg-brand-gray border border-neutral-800 p-3 md:p-4 rounded-sm">
                   <p className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Frenos</p>
                   <p className="text-white font-title text-xl font-bold mt-1">{product.frenos}</p>
                 </div>
@@ -196,14 +196,14 @@ export default function ProductShowcase({ bicycles, accessories }: ProductShowca
 
   return (
     <>
-      <section id="bicicletas" className="bg-neutral-950 py-24 border-t border-neutral-900">
+      <section id="bicicletas" className="bg-neutral-950 py-14 md:py-24 border-t border-neutral-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12">
             <div>
               <span className="text-xs font-bold tracking-widest text-brand-orange uppercase border-l-2 border-brand-orange pl-3">
                 CATÁLOGO EXCLUSIVO
               </span>
-              <h2 className="font-title text-4xl sm:text-5xl font-extrabold tracking-wide uppercase italic text-white mt-3">
+              <h2 className="font-title text-3xl sm:text-5xl font-extrabold tracking-wide uppercase italic text-white mt-3">
                 NUESTRAS <span className="text-brand-orange">BICICLETAS</span>
               </h2>
             </div>
@@ -218,7 +218,7 @@ export default function ProductShowcase({ bicycles, accessories }: ProductShowca
               <p className="text-neutral-500">Pronto cargaremos nuevas bicicletas. ¡Consultanos por WhatsApp!</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
               {bicycles.map((bike, index) => (
                 <ProductCard key={bike.id} product={bike} index={index} onDetails={() => setSelectedProduct(bike)} />
               ))}
@@ -227,14 +227,14 @@ export default function ProductShowcase({ bicycles, accessories }: ProductShowca
         </div>
       </section>
 
-      <section id="accesorios" className="bg-neutral-900/60 py-24 border-t border-neutral-900">
+      <section id="accesorios" className="bg-neutral-900/60 py-14 md:py-24 border-t border-neutral-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12">
             <div>
               <span className="text-xs font-bold tracking-widest text-brand-orange uppercase border-l-2 border-brand-orange pl-3">
                 EQUIPAMIENTO & SEGURIDAD
               </span>
-              <h2 className="font-title text-4xl sm:text-5xl font-extrabold tracking-wide uppercase italic text-white mt-3">
+              <h2 className="font-title text-3xl sm:text-5xl font-extrabold tracking-wide uppercase italic text-white mt-3">
                 ACCESORIOS <span className="text-brand-orange">DESTACADOS</span>
               </h2>
             </div>
@@ -248,7 +248,7 @@ export default function ProductShowcase({ bicycles, accessories }: ProductShowca
               <p className="text-neutral-500">Pronto cargaremos nuevos accesorios. ¡Escribinos por WhatsApp!</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
               {accessories.map((accessory, index) => (
                 <ProductCard key={accessory.id} product={accessory} index={index} onDetails={() => setSelectedProduct(accessory)} />
               ))}

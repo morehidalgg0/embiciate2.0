@@ -33,16 +33,16 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 w-full z-40 transition-all duration-300 ${
         isScrolled
-          ? "bg-neutral-950/90 backdrop-blur-md border-b border-neutral-900 py-3 shadow-lg"
-          : "bg-transparent py-5"
+          ? "bg-neutral-950/90 backdrop-blur-md border-b border-neutral-900 py-2 md:py-3 shadow-lg"
+          : "bg-transparent py-3 md:py-5"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-14 md:h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
             <a href="#inicio" className="flex items-center gap-2">
-              <span className="font-title text-2xl sm:text-3xl font-extrabold tracking-wider italic text-white">
+              <span className="font-title text-xl sm:text-3xl font-extrabold tracking-wider italic text-white">
                 EMB<span className="text-brand-orange">ICI</span>ATE
               </span>
             </a>
