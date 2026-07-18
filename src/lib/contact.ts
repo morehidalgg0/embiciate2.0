@@ -5,7 +5,7 @@ export const branches = [
     gmaps: "https://share.google/1UEHTWNFcyj3E1ick",
     phone: "+54 9 223 550-5397",
     whatsapp: "5492235505397",
-    hours: "Consultá horarios por WhatsApp",
+    hours: "Lun a Sáb: 11:00 - 19:00",
   },
   {
     name: "Sucursal Carrefour",
@@ -13,7 +13,7 @@ export const branches = [
     gmaps: "https://share.google/3qhBnn6Uvyu3VYecS",
     phone: "+54 9 223 551-7857",
     whatsapp: "5492235517857",
-    hours: "Consultá horarios por WhatsApp",
+    hours: "Todos los días: 9:00 - 21:00",
   },
 ];
 
