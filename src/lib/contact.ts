@@ -11,8 +11,8 @@ export const branches = [
     name: "Sucursal Carrefour",
     address: "Constitución 7598, Mar del Plata",
     gmaps: "https://share.google/3qhBnn6Uvyu3VYecS",
-    phone: "+54 9 2235 50-5397",
-    whatsapp: "5492235505397",
+    phone: "+54 9 223 551-7857",
+    whatsapp: "5492235517857",
     hours: "Todos los días: 9:00 - 21:00",
   },
 ];
