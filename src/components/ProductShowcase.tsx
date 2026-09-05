@@ -151,10 +151,6 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-brand-gray border border-neutral-800 p-3 md:p-4 rounded-sm">
-                <p className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Stock</p>
-                <p className="text-white font-title text-2xl font-bold mt-1">{product.stock}</p>
-              </div>
               {product.rodado && (
                 <div className="bg-brand-gray border border-neutral-800 p-3 md:p-4 rounded-sm">
                   <p className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Rodado</p>

@@ -25,7 +25,7 @@ async function main() {
       brand: "Firebird",
       category: "BICICLETA",
       price: 299900,
-      stock: 5,
+      stock: 0,
       imageUrl: "/images/firebird.jpeg",
       rodado: "29",
       velocidades: "21",
